@@ -1,0 +1,28 @@
+server:
+  port: 8082
+
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/test?autoReconnect=true&failOverReadOnly=false&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 666666
+    hikari:
+      minimum-idle: 20
+      maximum-pool-size: 100
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+  servlet:
+    multipart:
+      max-file-size: 100MB
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+file-path: ./file
