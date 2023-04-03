@@ -1,22 +1,42 @@
 package com.mingren.myl.core.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.mingren.myl.core.entity.DiningTable;
 import com.mingren.myl.core.entity.Order;
 import com.mingren.myl.core.entity.enums.PaymentMethod;
 import com.mingren.myl.core.service.OrderService;
+import com.mingren.myl.core.service.TableService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    @Resource
+    private TableService tableService;
 
+    /**
+     * 获取所有正在使用的订单
+     * @return
+     */
     @Override
     public List<Order> getUsedOrder() {
-        return null;
+        List<DiningTable> tables = tableService.listForUsed();\
+        List<Order> orders = new ArrayList<>();
+
+        for(DiningTable table : tables){
+            Order order = getOrderOrThrow(table.getOrderId());
+            order.setFoods(orderFoodMapper.selectOrderFoodListByOrderId(order.getId()));
+            order.setDiningTable(table);
+            orders.add(order);
+        }
+        return orders;
+
     }
 
     @Override
