@@ -1,4 +1,4 @@
-package com.mingren.myl.core.service;
+package com.mingren.myl.core.service.impl;
 
 import com.mingren.myl.core.entity.User;
 import com.mingren.myl.core.mapper.UserMapper;

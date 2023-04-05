@@ -102,10 +102,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean registeredUser(User user) {
-        if (userMapper.selectUserByName(user.getUsername())==null){
+        if (userMapper.selectUserByName(user.getUsername())!=null){
             throw new UnmessageException("用户名已存在!");
         }
-        if (userMapper.selectUserByTelephone(user.getTelephone())==null){
+        if (userMapper.selectUserByTelephone(user.getTelephone())!=null){
             throw new UnmessageException("手机号已经被注册!");
         }
         //进行密码加密处理

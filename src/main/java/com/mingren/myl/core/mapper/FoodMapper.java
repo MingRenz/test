@@ -1,0 +1,30 @@
+package com.mingren.myl.core.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.mingren.myl.core.entity.Food;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface FoodMapper extends BaseMapper<Food> {
+
+    @Select("SELECT COUNT(*) FROM food WHERE food_name = #{name} AND shop_name = #{shopName}")
+    boolean checkFoodNameCreated(@Param("name") String foodName, @Param("shopName") String shopName);
+
+
+    List<Food> selectFoodsByCid(Integer cid);
+
+    Food selectOneById(Integer id);
+
+
+    IPage<Food> pageByNameAndClassId(
+            IPage<Food> page,
+            @Param("name") String name,
+            @Param("cId") Integer classificationId,
+            @Param("shopName") String shopName);
+
+}
