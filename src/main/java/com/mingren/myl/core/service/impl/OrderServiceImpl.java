@@ -186,6 +186,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
+    @Transactional
     public boolean createOrder(Integer tableId, Integer numberOfPeople, String name, String remarks) {
 
         Order order = OrderBuilder.create().pushClientName(name)
@@ -219,6 +220,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
+    @Transactional
     public boolean createOrderWithFoods(Integer tableId, Integer numberOfPeople, String name, String remarks, String foods) {
         Order order = OrderBuilder.create().pushClientName(name)
                 .pushNumberOfPeople(numberOfPeople).pushRemarks(remarks)
@@ -297,6 +299,7 @@ public class OrderServiceImpl implements OrderService {
 
     //
     @Override
+    @Transactional
     public boolean updateOrder(Integer id, Integer tableId, Integer numberOfPeople, String name, String remarks) {
         //开放当前桌子
         Order order = getOrderOrThrow(id);
