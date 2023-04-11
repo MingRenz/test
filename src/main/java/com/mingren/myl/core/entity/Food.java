@@ -43,6 +43,9 @@ public class Food {
     @ApiModelProperty(value = "图片路径", example = "xxx.jpg")
     private String imgPath;
 
+    @ApiModelProperty(value = "做菜的大致时间")
+    private Integer time;
+
     @TableField(exist = false)
     @ApiModelProperty(value = "分类关系，直接无视掉就好了")
     private List<Classification> classifications;

@@ -36,9 +36,6 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 public class IndexController {
 
     @Resource
-    UserService userService;
-
-    @Resource
     DefaultKaptcha defaultKaptcha;
 
     @Resource
@@ -277,8 +274,6 @@ public class IndexController {
         }
         return "kitchenManager";
     }
-
-
 
 
 }

@@ -86,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 计算账单金额
+     * 根据订单id   计算账单金额
      * @param orderId
      * @return
      */
@@ -379,18 +379,19 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //根据菜品获取总金额
-        BigDecimal actualAmount = BigDecimal.ZERO;
-        List<OrderFood> foods = orderFoodMapper.selectOrderFoodListByOrderId(orderId);
-        if (foods != null) {
-            for (OrderFood food : foods) {
-                //已经退菜
-                if (food.getReturnStatus()) {
-                    continue;
-                }
-                actualAmount = actualAmount.add(food.getRealSinglePrice()
-                        .multiply(BigDecimal.valueOf(food.getAmount())));
-            }
-        }
+        BigDecimal actualAmount = getActualPrice(orderId);
+//                BigDecimal.ZERO;
+//        List<OrderFood> foods = orderFoodMapper.selectOrderFoodListByOrderId(orderId);
+//        if (foods != null) {
+//            for (OrderFood food : foods) {
+//                //已经退菜
+//                if (food.getReturnStatus()) {
+//                    continue;
+//                }
+//                actualAmount = actualAmount.add(food.getRealSinglePrice()
+//                        .multiply(BigDecimal.valueOf(food.getAmount())));
+//            }
+//        }
         order.setActualAmount(actualAmount);
 
         order.setPaymentPrice(price);
@@ -422,6 +423,7 @@ public class OrderServiceImpl implements OrderService {
         OrderFood orderFood = OrderFoodBuilder.create()
                 .pushFood(food).pushOrderId(orderId)
                 .pushAmount(1).finish();
+        log.info(food.toString()+"\n"+orderFood.toString());
 
 
         boolean result = orderFoodMapper.insert(orderFood) == 1;
